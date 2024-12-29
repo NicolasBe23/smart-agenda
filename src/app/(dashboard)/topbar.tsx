@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 export function Topbar() {
   return (
     <div className="h-14 w-full border-b border-gray-700 flex items-center justify-center gap-6 bg-gray-950">
-      <NavItem href="/">Clientes</NavItem>
-      <NavItem href="/line">Bicha</NavItem>
+      <NavItem href="/">Clients</NavItem>
+      <NavItem href="/line">Line</NavItem>
       <NavItem href="/appointments">Consultas</NavItem>
     </div>
   );
