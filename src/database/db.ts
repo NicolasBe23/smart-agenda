@@ -5,20 +5,31 @@ import { persist } from "zustand/middleware";
 interface DbStore {
   customers: Customer[];
 
-  createCustomer: (customer: Customer) => void;
+  createCustomer: (customer: Customer) => Customer;
   updateCustomer: (customerId: string, customer: Customer) => void;
   deleteCustomer: (customerId: string) => void;
   addCustomerInLine: (customerId: string) => void;
   removeCustomerFromLine: (customerId: string) => void;
+  getCustomer: (customerId: string) => Customer | undefined;
 }
 
 export const useDatabase = create<DbStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       customers: [],
 
       createCustomer: (customer: Customer) => {
-        set((state) => ({ customers: [...state.customers, customer] }));
+        const newCustomer = {
+          ...customer,
+          createAd: new Date(),
+          id: Math.random().toString(36).substring(2, 15),
+        };
+
+        set((state) => ({
+          customers: [...state.customers, newCustomer],
+        }));
+
+        return newCustomer;
       },
 
       updateCustomer: (customerId: string, customer: Customer) => {
@@ -49,6 +60,10 @@ export const useDatabase = create<DbStore>()(
             c.id === customerId ? { ...c, inLine: false } : c
           ),
         }));
+      },
+
+      getCustomer: (customerId: string) => {
+        return get().customers.find((c) => c.id === customerId);
       },
     }),
     {

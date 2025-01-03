@@ -9,12 +9,13 @@ import { useState } from "react";
 export default function Customers() {
   const router = useRouter();
   const { customers } = useDatabase();
-  const [search, setSearch] = useState(""); // Estado para a busca
+  const [search, setSearch] = useState("");
 
-  // Filtra os clientes pelo nome
   const filteredCustomers = customers.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase())
+    c.name.toLowerCase().startsWith(search.toLowerCase())
   );
+
+  const isThereAnyCustomers = filteredCustomers.length > 0;
 
   return (
     <div className="w-11/12 max-w-7xl">
@@ -22,26 +23,36 @@ export default function Customers() {
         <Input
           className="w-full max-w-lg"
           placeholder="Pesquisar..."
-          value={search} // Conecta o estado ao input
-          onChange={(e) => setSearch(e.target.value)} // Atualiza o estado
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <Button onClick={() => router.push("/customers/new")}>
           Novo Cliente
         </Button>
       </div>
 
-      <div className="w-full flex gap-4 flex-wrap mt-8">
-        {filteredCustomers.map((c) => (
-          <CustomerCard key={c.id} customer={c} />
-        ))}
-      </div>
+      {isThereAnyCustomers ? (
+        <div className="w-full flex gap-4 flex-wrap mt-8">
+          {filteredCustomers.map((c) => (
+            <CustomerCard key={c.id} customer={c} />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full flex justify-center items-center mt-8">
+          <p className="text-gray-400">Nenhum cliente encontrado {search}</p>
+        </div>
+      )}
     </div>
   );
 }
 
 function CustomerCard({ customer }: { customer: Customer }) {
+  const router = useRouter();
   return (
-    <div className="w-full max-w-sm bg-gray-950 rounded-md p-2 border border-gray-700">
+    <button
+      onClick={() => router.push(`/customers/${customer.id}`)}
+      className="w-full max-w-sm bg-gray-950 rounded-md p-2 border border-gray-700"
+    >
       <div className="p-2 border-b border-gray-700 flex justify-between items-center">
         <span>Nome</span>
         <span>{customer.name}</span>
@@ -54,6 +65,6 @@ function CustomerCard({ customer }: { customer: Customer }) {
         <span>Endereço</span>
         <span>{customer.address}</span>
       </div>
-    </div>
+    </button>
   );
 }
