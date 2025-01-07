@@ -1,25 +1,25 @@
+"use client";
+
 import { useDatabase } from "@/database/db";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import { AppointmentForm } from "@/components/forms/appointment-form";
 import { Appointment } from "@/entities/appointment";
-import { Title } from "@/components/ui/title";
+import { CustomerInfo } from "@/components/ui/customer-info";
 
 export default function Page() {
+  const params = useParams();
   const router = useRouter();
   const { createAppointment } = useDatabase();
   function onSubmit(appointment: Appointment) {
-    const customerId = router.query.id as string;
-    const newAppointment = createAppointment(appointment, customerId);
-    router.push(`/customers/${customerId}/appointments/${newAppointment}`);
+    const customerId = params.id as string;
+    createAppointment(appointment, customerId);
+    router.push(`/customers/${customerId}`);
   }
 
   return (
-    <div className="w-full border border-gray-700 bg-gray-950 p-6 rounded-md shadow-md flex flex-col  gap-6 ">
-      <Title>Novo Agendamento</Title>
-      <AppointmentForm
-        onSubmit={onSubmit}
-        customerId={router.query.id as string}
-      />
+    <div className="w-full flex flex-col gap-4">
+      <CustomerInfo id={params.id as string} />
+      <AppointmentForm onSubmit={onSubmit} customerId={params.id as string} />
     </div>
   );
 }

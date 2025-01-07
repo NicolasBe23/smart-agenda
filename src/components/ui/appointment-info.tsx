@@ -1,24 +1,12 @@
 "use client";
 
-import { useDatabase } from "@/database/db";
-import { useState } from "react";
-import { useEffect } from "react";
+import { Appointment } from "@/entities/appointment";
 
 interface Props {
-  id: string;
+  appointment: Appointment;
 }
 
-export default function AppointmentInfo({ id }: Props) {
-  const { getAppointment } = useDatabase();
-  const appointment = getAppointment(id);
-
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null;
+export function AppointmentInfo({ appointment }: Props) {
   return (
     <div className="w-full shadow-md bg-gray-950 rounded-md px-2 border border-gray-700">
       <div className="p-2 border-b border-gray-700 flex justify-between items-center">
