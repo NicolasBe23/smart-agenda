@@ -8,6 +8,6 @@ export interface Appointment {
   esfOE: string;
   cilOE: string;
   axleOE: number;
-  ADD: string;
+  ADD?: string;
   customerId: string;
 }

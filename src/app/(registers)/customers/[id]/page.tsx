@@ -1,4 +1,4 @@
-import { CustomerInfo } from "@/components/ui/customerInfo";
+import { CustomerInfo } from "@/components/ui/customer-info";
 
 interface PageProps {
   params: { id: string };
