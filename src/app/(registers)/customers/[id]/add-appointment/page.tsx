@@ -13,8 +13,8 @@ export default function Page() {
 
 	function onSubmit(appointment: Appointment) {
 		const customerId = params.id as string;
-		const newAppointment = createAppointment(appointment, customerId);
-		router.push(`/customers/${customerId}/appointments/${newAppointment}`);
+		createAppointment(appointment, customerId);
+		router.push(`/customers/${customerId}`);
 	}
 
 	return (
