@@ -8,22 +8,19 @@ import { useParams, useRouter } from "next/navigation";
 
 export default function Page() {
   const params = useParams();
-	const router = useRouter();
-	const { createAppointment } = useDatabase();
+  const router = useRouter();
+  const { createAppointment } = useDatabase();
 
-	function onSubmit(appointment: Appointment) {
-		const customerId = params.id as string;
-		createAppointment(appointment, customerId);
-		router.push(`/customers/${customerId}`);
-	}
+  function onSubmit(appointment: Appointment) {
+    const customerId = params.id as string;
+    createAppointment(appointment, customerId);
+    router.push(`/customers/${customerId}`);
+  }
 
-	return (
-		<div className="flex flex-col gap-4 w-full">
-			<CustomerInfo id={params.id as string} />
-			<AppointmentForm
-				onSubmit={onSubmit}
-				customerId={params.id as string}
-			/>
-		</div>
-	);
+  return (
+    <div className="flex flex-col gap-4 w-full">
+      <CustomerInfo id={params.id as string} />
+      <AppointmentForm onSubmit={onSubmit} customerId={params.id as string} />
+    </div>
+  );
 }
