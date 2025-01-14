@@ -2,7 +2,7 @@ import { CustomerInfo } from "@/components/ui/customer-info";
 import { AppointmentList } from "./appointment-list";
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function Customer({ params }: PageProps) {
