@@ -29,7 +29,7 @@ export default function EditAppointment() {
         <Title>Edit Appointment</Title>
         <AppointmentForm
           onSubmit={onSubmit}
-          defautlValues={appointment}
+          defaultValues={appointment}
           customerId={appointment.customerId}
         />
       </div>
