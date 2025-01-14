@@ -20,6 +20,8 @@ export function AppointmentInfo({ appointment }: Props) {
               <th className="p-2">Cilindric</th>
               <th className="p-2">Axle</th>
             </tr>
+          </thead>
+          <tbody>
             <tr className="border-b border-gray-700">
               <th className="text-left p-2">Left Eye</th>
               <th className="p-2">{appointment.esfOD}</th>
@@ -32,7 +34,7 @@ export function AppointmentInfo({ appointment }: Props) {
               <th className="p-2">{appointment.cilOE}</th>
               <th className="p-2">{appointment.axleOE}</th>
             </tr>
-          </thead>
+          </tbody>
         </table>
       </div>
     </button>

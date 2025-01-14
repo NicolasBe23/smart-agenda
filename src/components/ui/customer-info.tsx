@@ -12,7 +12,12 @@ interface Props {
 
 export function CustomerInfo({ id }: Props) {
   const router = useRouter();
-  const { getCustomer, deleteCustomer } = useDatabase();
+  const {
+    getCustomer,
+    deleteCustomer,
+    addCustomerInLine,
+    removeCustomerFromLine,
+  } = useDatabase();
   const customer = getCustomer(id);
 
   const [isClient, setIsClient] = useState(false);
@@ -21,13 +26,20 @@ export function CustomerInfo({ id }: Props) {
     setIsClient(true);
   }, []);
 
-  if (!isClient) return null;
-
-  const handleDeleteCustomer = (customerId: string) => {
-    deleteCustomer(customerId);
-
+  const handleDeleteCustomer = () => {
+    deleteCustomer(id);
     router.push("/");
   };
+
+  const handleAddCustomerInLine = () => {
+    if (customer?.inLine) {
+      removeCustomerFromLine(id);
+    } else {
+      addCustomerInLine(id);
+    }
+  };
+
+  if (!isClient) return null;
 
   return (
     <div className="w-full shadow-md bg-gray-950 rounded-md px-2 border border-gray-700">
@@ -56,8 +68,10 @@ export function CustomerInfo({ id }: Props) {
         <span>{customer?.email}</span>
       </div>
       <div className="p-2 flex justify-end items-center gap-2">
-        <Button>Add to Line</Button>
-        <Button onClick={() => handleDeleteCustomer(id)}>Delete</Button>
+        <Button onClick={handleAddCustomerInLine}>
+          {customer?.inLine ? "Remove from line" : "Add to line"}
+        </Button>
+        <Button onClick={handleDeleteCustomer}>Delete</Button>
         <Button onClick={() => router.push(`/customers/${id}/edit`)}>
           Edit
         </Button>

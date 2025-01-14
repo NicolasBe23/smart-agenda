@@ -1,38 +1,38 @@
 "use client";
 
-import { Appointment } from "@/entities/appointment";
+import type { Appointment } from "@/entities/appointment";
 import { useState } from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 interface Props {
   onSubmit: (appointment: Appointment) => void;
   customerId: string;
-  defautlValues?: Appointment;
+  defaultValues?: Appointment;
 }
 
 export function AppointmentForm({
   onSubmit,
   customerId,
-  defautlValues,
+  defaultValues,
 }: Props) {
   const emptyAppointment = {
-    id: "",
+    id: customerId,
     createdAt: new Date(),
     anamineses: "",
-    esfOD: "",
-    cilOD: "",
+    esfOD: "-0.00",
+    cilOD: "-0.00",
     axleOD: 0,
-    esfOE: "",
-    cilOE: "",
+    esfOE: "-0.00",
+    cilOE: "-0.00",
     axleOE: 0,
-    ADD: "",
+    ADD: "-0.00",
     customerId: customerId,
   };
 
   const [appointment, setAppointment] = useState<Appointment>(
-    defautlValues || emptyAppointment
+    defaultValues || emptyAppointment
   );
 
   const [errors, setErrors] = useState({
@@ -72,46 +72,46 @@ export function AppointmentForm({
     };
 
     if (appointment.esfOD !== null && !/^[+-]/.test(appointment.esfOD)) {
-      errors.esfODError = "O esfOD tem que ser um valor positivo ou negativo";
+      errors.esfODError = "The value must contain a + or -";
       hasErros = true;
     }
     if (Number(appointment.esfOD) % 0.25 !== 0) {
-      errors.esfODError = "O esfOD é obrigatório";
+      errors.esfODError = "The value must be a multiple of 0.25";
       hasErros = true;
     }
 
     if (Number(appointment.cilOD) % 0.25 !== 0) {
-      errors.cilODError = "O cilOD é obrigatório";
+      errors.cilODError = "The value must be a multiple of 0.25";
       hasErros = true;
     }
 
     if (Number(appointment.axleOD) % 5 !== 0) {
-      errors.axleODError = "O axleOD é obrigatório";
+      errors.axleODError = "The value must be a multiple of 5";
       hasErros = true;
     }
 
-    if (appointment.esfOE !== null && !/^[+-]/.test(appointment.esfOE)) {
-      errors.esfOEError = "O esfOE tem que ser um valor positivo ou negativo";
+    if (appointment.esfOE !== null && !/^[˝-]/.test(appointment.esfOE)) {
+      errors.esfOEError = "The value must contain a + or -";
       hasErros = true;
     }
 
     if (Number(appointment.esfOE) % 0.25 !== 0) {
-      errors.esfOEError = "O esfOE é obrigatório";
+      errors.esfOEError = "The value must be a multiple of 0.25";
       hasErros = true;
     }
 
     if (Number(appointment.cilOE) % 0.25 !== 0) {
-      errors.cilOEError = "O cilOE é obrigatório";
+      errors.cilOEError = "The value must be a multiple of 0.25";
       hasErros = true;
     }
 
     if (Number(appointment.axleOE) % 5 !== 0) {
-      errors.axleOEError = "O axleOE é obrigatório";
+      errors.axleOEError = "The value must be a multiple of 5";
       hasErros = true;
     }
 
     if (Number(appointment.ADD) % 0.25 !== 0) {
-      errors.ADDError = "O ADD é obrigatório";
+      errors.ADDError = "The value must be a multiple of 0.25";
       hasErros = true;
     }
 
@@ -124,7 +124,7 @@ export function AppointmentForm({
     <div className="flex flex-col gap-4">
       <div className="flex gap-4 w-full">
         <div className="flex flex-col gap-2 w-full">
-          <Label>EsfOD:</Label>
+          <Label>Sphere Right Eye:</Label>
           <Input
             type="text"
             name="esfOD"
@@ -136,7 +136,7 @@ export function AppointmentForm({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <Label>CilOD:</Label>
+          <Label>Cylinder Right Eye:</Label>
           <Input
             type="text"
             name="cilOD"
@@ -148,7 +148,7 @@ export function AppointmentForm({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <Label>AxleOD:</Label>
+          <Label>Axle Right Eye:</Label>
           <Input
             type="number"
             name="axleOD"
@@ -162,7 +162,7 @@ export function AppointmentForm({
       </div>
       <div className="flex gap-4 w-full">
         <div className="flex flex-col gap-2 w-full">
-          <Label>EsfOE:</Label>
+          <Label>Sphere Left Eye:</Label>
           <Input
             type="text"
             name="esfOE"
@@ -174,7 +174,7 @@ export function AppointmentForm({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <Label>CilOE:</Label>
+          <Label>Cylinder Left Eye:</Label>
           <Input
             type="text"
             name="cilOE"
@@ -186,7 +186,7 @@ export function AppointmentForm({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <Label>AxleOE:</Label>
+          <Label>Axle Left Eye:</Label>
           <Input
             type="number"
             name="axleOE"
@@ -207,9 +207,8 @@ export function AppointmentForm({
           onChange={handleInputChange}
         />
       </div>
-
-      <div className="flex flex-col gap-2 w-full">
-        <Label>Anamineses:</Label>
+      <div className="flex flex-col gap-2">
+        <Label>Anamneses:</Label>
         <Input
           type="text"
           name="anamineses"
@@ -218,7 +217,7 @@ export function AppointmentForm({
         />
       </div>
       <div className="flex justify-end">
-        <Button onClick={handleSubmit}>Salvar</Button>
+        <Button onClick={handleSubmit}>Save</Button>
       </div>
     </div>
   );
