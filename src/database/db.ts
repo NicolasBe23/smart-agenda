@@ -50,6 +50,7 @@ export const useDatabase = create<DbStore>()(
       deleteCustomer: (customerId: string) => {
         set((state) => ({
           customers: state.customers.filter((c) => c.id !== customerId),
+          appointments: state.appointments.filter((a) => a.customerId !== customerId),
         }));
       },
 
@@ -79,9 +80,16 @@ export const useDatabase = create<DbStore>()(
           id: Math.random().toString(36).substring(2, 15),
           customerId,
         };
+
         set((state) => ({
           appointments: [...state.appointments, newAppointment],
+          customers: state.customers.map((customer) =>
+            customer.id === customerId
+              ? { ...customer, inLine: false }
+              : customer
+          ),
         }));
+        
         return newAppointment;
       },
 

@@ -54,17 +54,17 @@ export function CustomerForm({ onSubmit, defaultValues }: Props) {
     };
 
     if (customer.name.length === 0) {
-      errors.nameError = "O nome é obrigatório";
+      errors.nameError = "Name is required";
       hasErros = true;
     }
 
     if (customer.age === 0) {
-      errors.ageError = "A idade é obrigatória";
+      errors.ageError = "Age is required";
       hasErros = true;
     }
 
     if (customer.nif.length === 0) {
-      errors.nifError = "O NIF é obrigatório";
+      errors.nifError = "NIF is required";
       hasErros = true;
     }
 

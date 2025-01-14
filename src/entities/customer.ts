@@ -10,4 +10,5 @@ export interface Customer {
   age: number;
   nif: string;
   appointments?: Appointment[];
+  inLine?: boolean;
 }

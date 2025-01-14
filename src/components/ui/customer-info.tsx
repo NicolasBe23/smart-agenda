@@ -12,7 +12,7 @@ interface Props {
 
 export function CustomerInfo({ id }: Props) {
   const router = useRouter();
-  const { getCustomer } = useDatabase();
+  const { getCustomer, deleteCustomer, addCustomerInLine, removeCustomerFromLine } = useDatabase();
   const customer = getCustomer(id);
 
   const [isClient, setIsClient] = useState(false);
@@ -20,6 +20,20 @@ export function CustomerInfo({ id }: Props) {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+
+  function handleDeleteCustomer() {
+    deleteCustomer(id);
+    router.push("/");
+  }
+
+  function handleAddCustomerToLine() {
+    if (customer?.inLine) {
+      removeCustomerFromLine(id);
+    } else {
+      addCustomerInLine(id);
+    }
+  }
 
   if (!isClient) return null;
 
@@ -50,9 +64,13 @@ export function CustomerInfo({ id }: Props) {
         <span>{customer?.email}</span>
       </div>
       <div className="p-2 py-6 flex justify-end items-center gap-2">
-        <Button>Add to line</Button>
-        <Button>Delete</Button>
-        <Button onClick={() => router.push(`/customers/${id}/edit`)}>Edit</Button>
+        <Button onClick={handleAddCustomerToLine}>
+          {customer?.inLine ? "Remove from line" : "Add to line"}
+        </Button>
+        <Button onClick={handleDeleteCustomer}>Delete</Button>
+        <Button onClick={() => router.push(`/customers/${id}/edit`)}>
+          Edit
+        </Button>
       </div>
     </div>
   );
