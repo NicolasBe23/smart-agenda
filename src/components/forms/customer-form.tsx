@@ -8,10 +8,11 @@ import { Button } from "../ui/button";
 
 interface Props {
   onSubmit: (customer: Customer) => void;
+  defaultValues?: Customer;
 }
 
-export function CustomerForm({ onSubmit }: Props) {
-  const [customer, setCustomer] = useState<Customer>({
+export function CustomerForm({ onSubmit, defaultValues }: Props) {
+  const emptyCustomer: Customer = {
     id: "",
     name: "",
     email: "",
@@ -20,7 +21,11 @@ export function CustomerForm({ onSubmit }: Props) {
     age: 0,
     nif: "",
     createdAt: new Date(),
-  });
+  };
+
+  const [customer, setCustomer] = useState<Customer>(
+    defaultValues || emptyCustomer
+  );
 
   const [errors, setErrors] = useState({
     nameError: "",
@@ -73,7 +78,7 @@ export function CustomerForm({ onSubmit }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <Label>
-        Nome
+        Name
         <Input
           name="name"
           type="text"
@@ -92,7 +97,7 @@ export function CustomerForm({ onSubmit }: Props) {
         />
       </Label>
       <Label>
-        Telefone
+        Phone
         <Input
           name="phone"
           type="text"
@@ -101,7 +106,7 @@ export function CustomerForm({ onSubmit }: Props) {
         />
       </Label>
       <Label>
-        Endereço
+        Address
         <Input
           name="address"
           type="text"
@@ -110,7 +115,7 @@ export function CustomerForm({ onSubmit }: Props) {
         />
       </Label>
       <Label>
-        Idade
+        Age
         <Input
           name="age"
           type="number"
@@ -131,7 +136,7 @@ export function CustomerForm({ onSubmit }: Props) {
       </Label>
 
       <div className="flex justify-end">
-        <Button onClick={handleSubmit}>Salvar</Button>
+        <Button onClick={handleSubmit}>Save</Button>
       </div>
     </div>
   );

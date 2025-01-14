@@ -17,6 +17,7 @@ interface DbStore {
   createAppointment: (appointment: Appointment, customerId: string) => void;
   getAppointment: (id: string) => Appointment | undefined;
   updateAppointment: (id: string, appointment: Appointment) => void;
+  deleteAppointment: (id: string) => void;
 }
 
 export const useDatabase = create<DbStore>()(
@@ -95,6 +96,12 @@ export const useDatabase = create<DbStore>()(
           appointments: state.appointments.map((a) =>
             a.id === id ? appointment : a
           ),
+        }));
+      },
+
+      deleteAppointment: (id: string) => {
+        set((state) => ({
+          appointments: state.appointments.filter((a) => a.id !== id),
         }));
       },
     }),

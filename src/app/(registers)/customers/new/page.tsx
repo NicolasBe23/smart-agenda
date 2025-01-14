@@ -11,12 +11,12 @@ export default function Page() {
   function onSubmit(customer: Customer) {
     const customerId = Math.random().toString();
     createCustomer({ ...customer, id: customerId });
-    router.push(`/customers/${customerId}`);
+    router.push("/");
   }
 
   return (
     <div className="w-full border border-gray-700 bg-gray-950 p-6 rounded-md shadow-md flex flex-col  gap-6 ">
-      <Title>Novo Cliente</Title>
+      <Title>New Customer</Title>
       <CustomerForm onSubmit={onSubmit} />
     </div>
   );

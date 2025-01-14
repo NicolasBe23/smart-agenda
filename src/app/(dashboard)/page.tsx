@@ -22,12 +22,12 @@ export default function Customers() {
       <div className="flex w-full items-center gap-4 justify-between">
         <Input
           className="w-full max-w-lg"
-          placeholder="Pesquisar..."
+          placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <Button onClick={() => router.push("/customers/new")}>
-          Novo Cliente
+          New Customer
         </Button>
       </div>
 
@@ -39,7 +39,7 @@ export default function Customers() {
         </div>
       ) : (
         <div className="w-full flex justify-center items-center mt-8">
-          <p className="text-gray-400">Nenhum cliente encontrado {search}</p>
+          <p className="text-gray-400">No customers found {search}</p>
         </div>
       )}
     </div>
@@ -54,15 +54,15 @@ function CustomerCard({ customer }: { customer: Customer }) {
       className="w-full max-w-sm bg-gray-950 rounded-md p-2 border border-gray-700"
     >
       <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>Nome</span>
+        <span>Name</span>
         <span>{customer.name}</span>
       </div>
       <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>Idade</span>
+        <span>Age</span>
         <span>{customer.age}</span>
       </div>
       <div className="p-2  flex justify-between items-center">
-        <span>Endereço</span>
+        <span>Address</span>
         <span>{customer.address}</span>
       </div>
     </button>

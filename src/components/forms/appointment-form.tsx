@@ -2,7 +2,6 @@
 
 import { Appointment } from "@/entities/appointment";
 import { useState } from "react";
-import { Title } from "../ui/title";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -10,11 +9,16 @@ import { Button } from "../ui/button";
 interface Props {
   onSubmit: (appointment: Appointment) => void;
   customerId: string;
+  defautlValues?: Appointment;
 }
 
-export function AppointmentForm({ onSubmit, customerId }: Props) {
-  const [appointment, setAppointment] = useState<Appointment>({
-    id: customerId,
+export function AppointmentForm({
+  onSubmit,
+  customerId,
+  defautlValues,
+}: Props) {
+  const emptyAppointment = {
+    id: "",
     createdAt: new Date(),
     anamineses: "",
     esfOD: "",
@@ -24,8 +28,12 @@ export function AppointmentForm({ onSubmit, customerId }: Props) {
     cilOE: "",
     axleOE: 0,
     ADD: "",
-    customerId: "",
-  });
+    customerId: customerId,
+  };
+
+  const [appointment, setAppointment] = useState<Appointment>(
+    defautlValues || emptyAppointment
+  );
 
   const [errors, setErrors] = useState({
     esfODError: "",
@@ -67,17 +75,17 @@ export function AppointmentForm({ onSubmit, customerId }: Props) {
       errors.esfODError = "O esfOD tem que ser um valor positivo ou negativo";
       hasErros = true;
     }
-    if (appointment.esfOD.length % 0.25 !== 0) {
+    if (Number(appointment.esfOD) % 0.25 !== 0) {
       errors.esfODError = "O esfOD é obrigatório";
       hasErros = true;
     }
 
-    if (appointment.cilOD.length % 0.25 !== 0) {
+    if (Number(appointment.cilOD) % 0.25 !== 0) {
       errors.cilODError = "O cilOD é obrigatório";
       hasErros = true;
     }
 
-    if (appointment.axleOD % 5 !== 0) {
+    if (Number(appointment.axleOD) % 5 !== 0) {
       errors.axleODError = "O axleOD é obrigatório";
       hasErros = true;
     }
@@ -87,18 +95,23 @@ export function AppointmentForm({ onSubmit, customerId }: Props) {
       hasErros = true;
     }
 
-    if (appointment.esfOE.length % 0.25 !== 0) {
+    if (Number(appointment.esfOE) % 0.25 !== 0) {
       errors.esfOEError = "O esfOE é obrigatório";
       hasErros = true;
     }
 
-    if (appointment.cilOE.length % 0.25 !== 0) {
+    if (Number(appointment.cilOE) % 0.25 !== 0) {
       errors.cilOEError = "O cilOE é obrigatório";
       hasErros = true;
     }
 
-    if (appointment.axleOE % 5 !== 0) {
+    if (Number(appointment.axleOE) % 5 !== 0) {
       errors.axleOEError = "O axleOE é obrigatório";
+      hasErros = true;
+    }
+
+    if (Number(appointment.ADD) % 0.25 !== 0) {
+      errors.ADDError = "O ADD é obrigatório";
       hasErros = true;
     }
 
@@ -108,8 +121,7 @@ export function AppointmentForm({ onSubmit, customerId }: Props) {
   }
 
   return (
-    <div className="w-full border border-gray-700 bg-gray-950 p-6 rounded-md shadow-md flex flex-col  gap-6 ">
-      <Title>Nova Consulta</Title>
+    <div className="flex flex-col gap-4">
       <div className="flex gap-4 w-full">
         <div className="flex flex-col gap-2 w-full">
           <Label>EsfOD:</Label>

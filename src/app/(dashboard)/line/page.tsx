@@ -19,7 +19,7 @@ function CustomerLine({ customer }: { customer: Customer }) {
   return (
     <div className="w-full bg-gray-950 rounded-md p-2 border border-gray-700">
       <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>Nome</span>
+        <span>Name</span>
         <span>{customer.name}</span>
       </div>
     </div>

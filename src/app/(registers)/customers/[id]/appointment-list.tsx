@@ -23,18 +23,18 @@ export function AppointmentList({ customerId }: Props) {
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex items-center justify-between">
-        <Title>Agendamentos</Title>
+        <Title>Appointment</Title>
         <Button
           onClick={() =>
             router.push(`/customers/${customerId}/add-appointment`)
           }
         >
-          Novo Agendamento
+          New Appointment
         </Button>
       </div>
       {isEmpty ? (
         <div>
-          <span>Nenhum agendamento encontrado</span>
+          <span>No appointments found</span>
         </div>
       ) : (
         custormerAppointments.map((appointment) => (
