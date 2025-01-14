@@ -3,12 +3,15 @@
 import { useDatabase } from "@/database/db";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Button } from "./button";
+import { useRouter } from "next/navigation";
 
 interface Props {
   id: string;
 }
 
 export function CustomerInfo({ id }: Props) {
+  const router = useRouter();
   const { getCustomer } = useDatabase();
   const customer = getCustomer(id);
 
@@ -42,9 +45,14 @@ export function CustomerInfo({ id }: Props) {
         <span>Phone:</span>
         <span>{customer?.phone}</span>
       </div>
-      <div className="p-2 flex justify-between items-center">
+      <div className="p-2 flex justify-between items-center border-b border-gray-700">
         <span>Email:</span>
         <span>{customer?.email}</span>
+      </div>
+      <div className="p-2 py-6 flex justify-end items-center gap-2">
+        <Button>Add to line</Button>
+        <Button>Delete</Button>
+        <Button onClick={() => router.push(`/customers/${id}/edit`)}>Edit</Button>
       </div>
     </div>
   );

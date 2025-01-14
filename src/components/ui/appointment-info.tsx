@@ -1,46 +1,43 @@
 "use client";
 
 import type { Appointment } from "@/entities/appointment";
+import { useRouter } from "next/navigation";
 
 interface Props {
   appointment: Appointment;
 }
 
 export function AppointmentInfo({ appointment }: Props) {
+  const router = useRouter();
+
   return (
-    <div className="w-full shadow-md bg-gray-950 rounded-md px-2 border border-gray-700">
-      <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>EsfOD:</span>
-        <span>{appointment?.esfOD}</span>
+    <button onClick={() => router.push(`/appointments/${appointment.id}`)}>
+      <div className="w-full shadow-md bg-gray-950 rounded-md p-2 px-4 border border-gray-700">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-gray-700">
+              <th />
+              <th className="p-2">Spherical</th>
+              <th className="p-2">Cilindric</th>
+              <th className="p-2">Axle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-gray-700">
+              <th className="text-left p-2">Left Eye</th>
+              <th className="p-2">{appointment.esfOD}</th>
+              <th className="p-2">{appointment.cilOD}</th>
+              <th className="p-2">{appointment.axleOD}</th>
+            </tr>
+            <tr>
+              <th className="text-left p-2">Right Eye</th>
+              <th className="p-2">{appointment.esfOE}</th>
+              <th className="p-2">{appointment.cilOE}</th>
+              <th className="p-2">{appointment.axleOE}</th>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>CilOD:</span>
-        <span>{appointment?.cilOD}</span>
-      </div>
-      <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>AxleOD:</span>
-        <span>{appointment?.axleOD}</span>
-      </div>
-      <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>EsfOI:</span>
-        <span>{appointment?.esfOE}</span>
-      </div>
-      <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>CilOI:</span>
-        <span>{appointment?.cilOE}</span>
-      </div>
-      <div className="p-2 border-b border-gray-700 flex justify-between items-center">
-        <span>AxleOI:</span>
-        <span>{appointment?.axleOE}</span>
-      </div>
-      <div className="p-2 flex border-b border-gray-700 justify-between items-center">
-        <span>ADD:</span>
-        <span>{appointment?.ADD}</span>
-      </div>
-      <div className="p-2 flex border-b border-gray-700 justify-between items-center">
-        <span>anamineses:</span>
-        <span>{appointment?.anamineses}</span>
-      </div>
-    </div>
+    </button>
   );
 }

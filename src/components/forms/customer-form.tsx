@@ -8,10 +8,11 @@ import { Button } from "../ui/button";
 
 interface Props {
   onSubmit: (customer: Customer) => void;
+  defaultValues?: Customer;
 }
 
-export function CustomerForm({ onSubmit }: Props) {
-  const [customer, setCustomer] = useState<Customer>({
+export function CustomerForm({ onSubmit, defaultValues }: Props) {
+  const emptyCustomer: Customer = {
     id: "",
     name: "",
     email: "",
@@ -20,7 +21,9 @@ export function CustomerForm({ onSubmit }: Props) {
     age: 0,
     nif: "",
     createdAt: new Date(),
-  });
+  };
+
+  const [customer, setCustomer] = useState<Customer>(defaultValues || emptyCustomer);
 
   const [errors, setErrors] = useState({
     nameError: "",

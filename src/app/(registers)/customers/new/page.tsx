@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
   const { createCustomer } = useDatabase();
+  
   function onSubmit(customer: Customer) {
     const customerId = Math.random().toString();
     createCustomer({ ...customer, id: customerId });

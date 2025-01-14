@@ -6,7 +6,7 @@ import { useDatabase } from "@/database/db";
 import type { Appointment } from "@/entities/appointment";
 import { useParams, useRouter } from "next/navigation";
 
-export default function Page() {
+export default function AddAppointment() {
   const params = useParams();
   const router = useRouter();
   const { createAppointment } = useDatabase();
