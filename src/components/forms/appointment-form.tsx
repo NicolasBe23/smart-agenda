@@ -20,7 +20,7 @@ export function AppointmentForm({
   const emptyAppointment = {
     id: customerId,
     createdAt: new Date(),
-    anamineses: "",
+    anamnesis: "",
     esfOD: "-0.00",
     cilOD: "-0.00",
     axleOD: 0,
@@ -85,8 +85,8 @@ export function AppointmentForm({
       hasErros = true;
     }
 
-    if (Number(appointment.axleOD) % 5 !== 0) {
-      errors.axleODError = "The value must be a multiple of 5";
+    if (Number(appointment.axleOD) >= 180) {
+      errors.axleODError = "The value must be less than 180";
       hasErros = true;
     }
 
@@ -105,8 +105,8 @@ export function AppointmentForm({
       hasErros = true;
     }
 
-    if (Number(appointment.axleOE) % 5 !== 0) {
-      errors.axleOEError = "The value must be a multiple of 5";
+    if (Number(appointment.axleOE) >= 180) {
+      errors.axleODError = "The value must be less than 180";
       hasErros = true;
     }
 
@@ -208,11 +208,11 @@ export function AppointmentForm({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label>Anamneses:</Label>
+        <Label>Anamnesis:</Label>
         <Input
           type="text"
-          name="anamineses"
-          value={appointment.anamineses}
+          name="anamnesis"
+          value={appointment.anamnesis}
           onChange={handleInputChange}
         />
       </div>

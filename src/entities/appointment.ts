@@ -1,7 +1,7 @@
 export interface Appointment {
   id: string;
   createdAt: Date;
-  anamineses: string;
+  anamnesis: string;
   esfOD: string;
   cilOD: string;
   axleOD: number;
